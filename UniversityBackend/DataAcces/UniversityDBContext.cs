@@ -10,5 +10,6 @@ namespace UniversityBackend.DataAcces
 
         }
         public DbSet<User>? Users { get; set; }
+        public DbSet<Curso>? Curso { get; set; }
     }
 }

@@ -3,8 +3,9 @@
 namespace UniversityBackend.Models.DataModels
 {
     public enum Nivel { Basico, Intermedio, Avanzado};
-    public class Curso
+    public class Curso: BaseEntity
     {
+
         [Required, StringLength(50)]
         public string name { get; set; }= string.Empty;
         [Required, StringLength(280)]
@@ -22,5 +23,9 @@ namespace UniversityBackend.Models.DataModels
         [Required]
         public Nivel level { get; set; } = 0;
 
+        [Required]
+        public ICollection<Category> categories { get; set; } = new List<Category>();
+        [Required]
+        public Chapter chapter { get; set; }= new Chapter();
     }
 }

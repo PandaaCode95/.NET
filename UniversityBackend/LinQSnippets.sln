@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinQSnippets", "LinQSnippets\LinQSnippets.csproj", "{2378F0F1-568E-4680-B6D5-15DEB5AEF2E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2378F0F1-568E-4680-B6D5-15DEB5AEF2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2378F0F1-568E-4680-B6D5-15DEB5AEF2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2378F0F1-568E-4680-B6D5-15DEB5AEF2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2378F0F1-568E-4680-B6D5-15DEB5AEF2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8C158AA-7421-4F59-823E-DBE01E9210E5}
+	EndGlobalSection
+EndGlobal

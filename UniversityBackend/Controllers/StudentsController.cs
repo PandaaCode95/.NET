@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityBackend.DataAcces;
 using UniversityBackend.Models.DataModels;
-
+using UniversityBackend.Sevices;
 namespace UniversityBackend.Controllers
 {
     [Route("api/[controller]")]
@@ -15,12 +15,16 @@ namespace UniversityBackend.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly UniversityDBContext _context;
-
-        public StudentsController(UniversityDBContext context)
+        //Service
+        
+        private readonly IStudentService _studentService;
+        public StudentsController(UniversityDBContext context, IStudentService studentService)
         {
             _context = context;
+            _studentService.GetCursoStudent();
+            _studentService.GetStudentNoCurso();
         }
-
+        
         // GET: api/Students
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
@@ -80,7 +84,7 @@ namespace UniversityBackend.Controllers
 
             return NoContent();
         }
-
+        
         // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

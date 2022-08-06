@@ -7,7 +7,7 @@ namespace UniversityBackend.Models.DataModels
         public int cursoId { get; set; }
         public virtual Curso Curso { get; set; } = new Curso();
         [Required]
-        public string Chapters = string.Empty;
+        public string title = string.Empty;
 
     }
 }

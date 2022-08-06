@@ -18,7 +18,7 @@ namespace UniversityBackend.Models.DataModels
         public ICollection<Category> categories { get; set; } = new List<Category>();
 
         [Required]
-        public ICollection<Student> students { get; set; } = new List<Student>();
+        public ICollection<Curso> curso { get; set; } = new List<Curso>();
 
     }
 }

@@ -26,6 +26,9 @@ namespace UniversityBackend.Models.DataModels
         [Required]
         public ICollection<Category> categories { get; set; } = new List<Category>();
         [Required]
+        public ICollection<Student> students { get; set; } = new List<Student>();
+
+        [Required]
         public Chapter chapter { get; set; }= new Chapter();
     }
 }

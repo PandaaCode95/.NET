@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using UniversityBackend;
 using UniversityBackend.DataAcces;
 using UniversityBackend.Sevices;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,11 +22,41 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 //Swagger ocn JWT
+builder.Services.AddSwaggerGen(option =>
+{
+    //Security
+option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme({
+    Name = "Authorization",
+    Type = SecuritySchemeType.Http,
+    Scheme = "Bearer",
+    BearerFormat = "JWT",
+    In = ParameterLocation.Header,
+    Description = "JWT Authorization Header using Bearer"
+    });
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference= new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+        },
+         new string[]{}
+        }
+    }) ;
+});
+//Add Authorization
 
-
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("UserPolicy", policy => policy.RequireClaim("UserOnly", "User"));
+});
 //JWT
 
-//builder.Services.AddJwtTokenServices(builder.Configuration);
+builder.Services.AddJwtTokenServices(builder.Configuration);
 
 //Cors
 

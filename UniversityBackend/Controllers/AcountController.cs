@@ -5,17 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using UniversityBackend.Helpers;
 using UniversityBackend.Models.DataModels;
-
+using UniversityBackend.DataAcces;
 namespace UniversityBackend.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly UniversityDBContext _context;
         private readonly JwtSettings _jwtSettings;
-        public AccountController(JwtSettings jwtSettings)
+        public AccountController(UniversityDBContext context ,JwtSettings jwtSettings)
         {
             _jwtSettings = jwtSettings;
+            _context = context;
         }
         private IEnumerable<User> Logins = new List<User>()
         {
@@ -34,11 +36,14 @@ namespace UniversityBackend.Controllers
             }
         };
         [HttpPost]
-        public IActionResult GetToken(UserLogin userLogin)
+        public async IActionResult GetToken(UserLogin userLogin)
         {
             try
             {
                 var token = new UserTokens();
+
+                var user = await _context.Users.FindAsync(userLogin.UserName);
+
                 var valid = Logins.Any(user => user.name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
 
                 if (valid)
@@ -67,11 +72,22 @@ namespace UniversityBackend.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
 
         public IActionResult GetUserList()
         {
             return Ok(Logins);
+        } 
+        
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+
+        public IActionResult GetUserGood()
+        {
+            var linq = from user in _context.Users
+                       where user.name == "Alvaro"
+                       select user;
+            return (IActionResult)linq;
         }
        
     }

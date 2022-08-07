@@ -15,7 +15,15 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+//Swagger ocn JWT
+
+
+//JWT
+
+//builder.Services.AddJwtTokenServices(builder.Configuration);
+
 //Cors
 
 builder.Services.AddCors(options =>

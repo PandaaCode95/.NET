@@ -19,19 +19,26 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+//Localization 
+
+builder.Services.AddLocalization(option => option.ResourcesPath = "Resources");
+
+var supportedCultures = new[] { "en-US", "es-Es", "fr-FR" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0]).AddSupportedCultures(supportedCultures);
+
 
 builder.Services.AddSwaggerGen();
 //Swagger ocn JWT
 builder.Services.AddSwaggerGen(option =>
 {
     //Security
-option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme({
-    Name = "Authorization",
-    Type = SecuritySchemeType.Http,
-    Scheme = "Bearer",
-    BearerFormat = "JWT",
-    In = ParameterLocation.Header,
-    Description = "JWT Authorization Header using Bearer"
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme({
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization Header using Bearer"
     });
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -81,7 +88,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseRequestLocalization(localizationOptions);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

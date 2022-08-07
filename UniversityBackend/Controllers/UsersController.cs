@@ -9,6 +9,9 @@ using UniversityBackend.DataAcces;
 using UniversityBackend.Models.DataModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
+using UniversityBackend.Entities;
+
 namespace UniversityBackend.Controllers
 {
     [Route("api/[controller]")]
@@ -16,7 +19,8 @@ namespace UniversityBackend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UniversityDBContext _context;
-
+        private readonly IStringLocalizer<UsersController> _stringLocalizer;
+        private readonly IStringLocalizer<SharedResource> _sharedResourceLocalization;
         public UsersController(UniversityDBContext context)
         {
             _context = context;
@@ -97,7 +101,12 @@ namespace UniversityBackend.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            var article = _stringLocalizer["Article"];
+           // var postName = _stringLocalizer.GetString("Welcome").Value ?? String.Empty;
+           // var todayIs = string.Format(_sharedResourceLocalization.GetString("TodayIs"), DateTime.Now.ToLongDateString());
+
+        
+            return CreatedAtAction( article.Value, new { id = user.Id }, user);
         }
 
         // DELETE: api/Users/5

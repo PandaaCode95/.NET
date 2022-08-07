@@ -36,27 +36,33 @@ namespace UniversityBackend.Controllers
             }
         };
         [HttpPost]
-        public async IActionResult GetToken(UserLogin userLogin)
+        public IActionResult GetToken(UserLogin userLogin)
         {
             try
             {
                 var token = new UserTokens();
 
-                var user = await _context.Users.FindAsync(userLogin.UserName);
+
+                var linq = (from user in _context.Users
+                            where user.name == userLogin.UserName
+                            && user.password == userLogin.Password
+                            select user).FirstOrDefault();
+
+                Console.WriteLine("User Found:", linq);
 
                 var valid = Logins.Any(user => user.name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
 
                 if (valid)
                 {
-                    var user = Logins.FirstOrDefault(user => user.name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
+                    //var user = Logins.FirstOrDefault(user => user.name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
 
                     token = JwtHelpers.GetTokenKey(new UserTokens()
                     {
-                        UserName = user.name,
-                        EmailId = user.email,
-                        Id = user.Id,
+                        UserName = linq.name,
+                        EmailId = linq.email,
+                        Id = linq.Id,
                         GuiId = Guid.NewGuid()
-                    },_jwtSettings);
+                    }, _jwtSettings);
                 }
                 else
                 {
@@ -65,7 +71,7 @@ namespace UniversityBackend.Controllers
                 return Ok(token);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("GetToken Error", ex);
             }
@@ -82,11 +88,16 @@ namespace UniversityBackend.Controllers
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
 
-        public IActionResult GetUserGood()
+        public IActionResult GetUserV(UserLogin login)
         {
-            var linq = from user in _context.Users
-                       where user.name == "Alvaro"
-                       select user;
+            
+            var linq = (from user in _context.Users
+                       where user.name == login.UserName
+                       && user.password ==login.Password
+                       select user).FirstOrDefault();
+
+            Console.WriteLine("User Found:", linq);
+
             return (IActionResult)linq;
         }
        

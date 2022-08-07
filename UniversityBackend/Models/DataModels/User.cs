@@ -2,6 +2,7 @@
 
 namespace UniversityBackend.Models.DataModels
 {
+   
     public class User :BaseEntity
     {
         [Required, StringLength(50)]
@@ -14,6 +15,8 @@ namespace UniversityBackend.Models.DataModels
 
         [Required]
         public string password { get; set; } = string.Empty;
+
+        
 
     }
 }

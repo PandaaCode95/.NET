@@ -10,5 +10,6 @@
         public string? EmailId { get; set; }
         public Guid GuiId { get; set; }
         public DateTime ExpiredTime { get; set; }
+
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using UniversityBackend.DataAcces;
 using UniversityBackend.Models.DataModels;
 using UniversityBackend.Sevices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 namespace UniversityBackend.Controllers
 {
     [Route("api/[controller]")]
@@ -27,6 +29,7 @@ namespace UniversityBackend.Controllers
         
         // GET: api/Students
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             if (_context.Students == null)
@@ -38,6 +41,7 @@ namespace UniversityBackend.Controllers
 
         // GET: api/Students/5
         [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
             if (_context.Students == null)
@@ -57,6 +61,7 @@ namespace UniversityBackend.Controllers
         // PUT: api/Students/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
             if (id != student.Id)
@@ -88,6 +93,7 @@ namespace UniversityBackend.Controllers
         // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
             if (_context.Students == null)
@@ -102,6 +108,7 @@ namespace UniversityBackend.Controllers
 
         // DELETE: api/Students/5
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             if (_context.Students == null)

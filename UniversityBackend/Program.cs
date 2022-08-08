@@ -4,8 +4,20 @@ using UniversityBackend.DataAcces;
 using UniversityBackend.Sevices;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
+using Serilog;
+
+//Use serilog
+
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Config serilog
+
+builder.Host.UseSerilog((hotsBuilderCtx, loggerConf) =>
+{
+    loggerConf.WriteTo.Console().WriteTo.Debug().ReadFrom.Configuration(hotsBuilderCtx.Configuration);
+});
 
 // Add services to the container.
 
@@ -88,6 +100,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Login serilog
+app.UseSerilogRequestLogging();
 app.UseRequestLocalization(localizationOptions);
 app.UseHttpsRedirection();
 

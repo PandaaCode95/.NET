@@ -101,7 +101,7 @@ namespace UniversityBackend.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var article = _stringLocalizer["Article"];
+            var article = _stringLocalizer["Welcome"];
            // var postName = _stringLocalizer.GetString("Welcome").Value ?? String.Empty;
            // var todayIs = string.Format(_sharedResourceLocalization.GetString("TodayIs"), DateTime.Now.ToLongDateString());
 

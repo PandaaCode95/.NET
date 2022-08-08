@@ -1,6 +1,6 @@
 ﻿namespace UniversityBackend.Entities
 {
-    public class Class
+    public class SharedResource
     {
     }
 }
